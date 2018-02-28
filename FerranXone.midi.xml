@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='utf-8'?>
+<MixxxControllerPreset mixxxVersion="2.1.0+" schemaVersion="1">
+    <info>
+        <name>Xone Chain</name>
+        <author>Ferran Pujol Camins</author>
+        <description>Xone Chain</description>
+    </info>
+    <controller id="XoneChain">
+        <scriptfiles>
+            <file filename="lodash.mixxx.js"/>
+            <file filename="midi-components-0.0.js"/>
+            <file functionprefix="XoneChain" filename="FerranXone.js"/>
+        </scriptfiles>
+        <controls>
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x90</status>
+                <midino>0x0C</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+            <control>
+                <group>[ShiftButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x90</status>
+                <midino>0x0F</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0xB0</status>
+                <midino>0x10</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+        </controls>
+    </controller>
+</MixxxControllerPreset>
