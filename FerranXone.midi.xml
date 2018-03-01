@@ -8,6 +8,8 @@
     <controller id="XoneChain">
         <scriptfiles>
             <file filename="lodash.mixxx.js"/>
+            <file filename="common-midi.js"/>
+            <file filename="common-mapping.js"/>
             <file filename="midi-components-0.0.js"/>
             <file functionprefix="XoneChain" filename="FerranXone.js"/>
         </scriptfiles>
@@ -15,17 +17,8 @@
             <control>
                 <group>[LayerButton]</group>
                 <key>XoneChain.input</key>
-                <status>0x90</status>
-                <midino>0x0C</midino>
-                <options>
-                    <script-binding/>
-                </options>
-            </control>
-            <control>
-                <group>[ShiftButton]</group>
-                <key>XoneChain.input</key>
-                <status>0x90</status>
-                <midino>0x0F</midino>
+                <status>0x92</status>
+                <midino>0x24</midino>
                 <options>
                     <script-binding/>
                 </options>
@@ -33,12 +26,314 @@
             <control>
                 <group>[LayerButton]</group>
                 <key>XoneChain.input</key>
-                <status>0xB0</status>
-                <midino>0x10</midino>
+                <status>0x82</status>
+                <midino>0x24</midino>
                 <options>
                     <script-binding/>
                 </options>
             </control>
+
+            
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x92</status>
+                <midino>0x25</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x82</status>
+                <midino>0x25</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+
+
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x92</status>
+                <midino>0x26</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x82</status>
+                <midino>0x26</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+
+
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x92</status>
+                <midino>0x27</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x82</status>
+                <midino>0x27</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+
+
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x92</status>
+                <midino>0x28</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x82</status>
+                <midino>0x28</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+
+
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x92</status>
+                <midino>0x29</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x82</status>
+                <midino>0x29</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+
+
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x92</status>
+                <midino>0x2A</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x82</status>
+                <midino>0x2A</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+
+
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x92</status>
+                <midino>0x2B</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x82</status>
+                <midino>0x2B</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+
+
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x92</status>
+                <midino>0x2C</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x82</status>
+                <midino>0x2C</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+
+
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x92</status>
+                <midino>0x2D</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x82</status>
+                <midino>0x2D</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+
+
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x92</status>
+                <midino>0x2E</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x82</status>
+                <midino>0x2E</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+
+
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x92</status>
+                <midino>0x2F</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x82</status>
+                <midino>0x2F</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+
+
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x92</status>
+                <midino>0x30</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x82</status>
+                <midino>0x30</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+
+
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x92</status>
+                <midino>0x31</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x82</status>
+                <midino>0x31</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+
+
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x92</status>
+                <midino>0x32</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x82</status>
+                <midino>0x32</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+
+
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x92</status>
+                <midino>0x33</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+            <control>
+                <group>[LayerButton]</group>
+                <key>XoneChain.input</key>
+                <status>0x82</status>
+                <midino>0x33</midino>
+                <options>
+                    <script-binding/>
+                </options>
+            </control>
+
+
         </controls>
     </controller>
 </MixxxControllerPreset>
