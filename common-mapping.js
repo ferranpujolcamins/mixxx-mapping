@@ -21,17 +21,17 @@
             }
         },
     
-        trigger: function(channel, control, value, status) {
+        trigger: function(channel, control, value, status, group) {
     
-            status = status - channel;
+            var statusNormalized = status - channel;
     
             var controlFuncOrObject = this[channel][control];
             if (typeof controlFuncOrObject === "function") {
-                controlFuncOrObject(status, value);
+                controlFuncOrObject(channel, control, value, status, group);
             } else if (typeof controlFuncOrObject === "object") {
-                var statusFunc = controlFuncOrObject[status];
+                var statusFunc = controlFuncOrObject[statusNormalized];
                 if (typeof statusFunc === "function") {
-                    statusFunc(value);
+                    statusFunc(channel, control, value, status, group);
                 }
             }
         }
