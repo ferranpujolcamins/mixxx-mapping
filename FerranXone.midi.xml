@@ -16,18 +16,18 @@
         </scriptfiles>
         <controls>
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x92</status>
+                <status>0x93</status>
                 <midino>0x24</midino>
                 <options>
                     <script-binding/>
                 </options>
             </control>
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x82</status>
+                <status>0x83</status>
                 <midino>0x24</midino>
                 <options>
                     <script-binding/>
@@ -36,18 +36,18 @@
 
             
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x92</status>
+                <status>0x93</status>
                 <midino>0x25</midino>
                 <options>
                     <script-binding/>
                 </options>
             </control>
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x82</status>
+                <status>0x83</status>
                 <midino>0x25</midino>
                 <options>
                     <script-binding/>
@@ -56,18 +56,18 @@
 
 
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x92</status>
+                <status>0x93</status>
                 <midino>0x26</midino>
                 <options>
                     <script-binding/>
                 </options>
             </control>
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x82</status>
+                <status>0x83</status>
                 <midino>0x26</midino>
                 <options>
                     <script-binding/>
@@ -76,18 +76,18 @@
 
 
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x92</status>
+                <status>0x93</status>
                 <midino>0x27</midino>
                 <options>
                     <script-binding/>
                 </options>
             </control>
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x82</status>
+                <status>0x83</status>
                 <midino>0x27</midino>
                 <options>
                     <script-binding/>
@@ -96,18 +96,18 @@
 
 
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x92</status>
+                <status>0x93</status>
                 <midino>0x28</midino>
                 <options>
                     <script-binding/>
                 </options>
             </control>
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x82</status>
+                <status>0x83</status>
                 <midino>0x28</midino>
                 <options>
                     <script-binding/>
@@ -116,18 +116,18 @@
 
 
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x92</status>
+                <status>0x93</status>
                 <midino>0x29</midino>
                 <options>
                     <script-binding/>
                 </options>
             </control>
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x82</status>
+                <status>0x83</status>
                 <midino>0x29</midino>
                 <options>
                     <script-binding/>
@@ -136,18 +136,18 @@
 
 
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x92</status>
+                <status>0x93</status>
                 <midino>0x2A</midino>
                 <options>
                     <script-binding/>
                 </options>
             </control>
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x82</status>
+                <status>0x83</status>
                 <midino>0x2A</midino>
                 <options>
                     <script-binding/>
@@ -156,18 +156,18 @@
 
 
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x92</status>
+                <status>0x93</status>
                 <midino>0x2B</midino>
                 <options>
                     <script-binding/>
                 </options>
             </control>
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x82</status>
+                <status>0x83</status>
                 <midino>0x2B</midino>
                 <options>
                     <script-binding/>
@@ -176,18 +176,18 @@
 
 
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x92</status>
+                <status>0x93</status>
                 <midino>0x2C</midino>
                 <options>
                     <script-binding/>
                 </options>
             </control>
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x82</status>
+                <status>0x83</status>
                 <midino>0x2C</midino>
                 <options>
                     <script-binding/>
@@ -196,18 +196,18 @@
 
 
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x92</status>
+                <status>0x93</status>
                 <midino>0x2D</midino>
                 <options>
                     <script-binding/>
                 </options>
             </control>
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x82</status>
+                <status>0x83</status>
                 <midino>0x2D</midino>
                 <options>
                     <script-binding/>
@@ -216,18 +216,18 @@
 
 
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x92</status>
+                <status>0x93</status>
                 <midino>0x2E</midino>
                 <options>
                     <script-binding/>
                 </options>
             </control>
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x82</status>
+                <status>0x83</status>
                 <midino>0x2E</midino>
                 <options>
                     <script-binding/>
@@ -236,18 +236,18 @@
 
 
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x92</status>
+                <status>0x93</status>
                 <midino>0x2F</midino>
                 <options>
                     <script-binding/>
                 </options>
             </control>
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x82</status>
+                <status>0x83</status>
                 <midino>0x2F</midino>
                 <options>
                     <script-binding/>
@@ -256,18 +256,18 @@
 
 
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x92</status>
+                <status>0x93</status>
                 <midino>0x30</midino>
                 <options>
                     <script-binding/>
                 </options>
             </control>
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x82</status>
+                <status>0x83</status>
                 <midino>0x30</midino>
                 <options>
                     <script-binding/>
@@ -276,18 +276,18 @@
 
 
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x92</status>
+                <status>0x93</status>
                 <midino>0x31</midino>
                 <options>
                     <script-binding/>
                 </options>
             </control>
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x82</status>
+                <status>0x83</status>
                 <midino>0x31</midino>
                 <options>
                     <script-binding/>
@@ -296,18 +296,18 @@
 
 
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x92</status>
+                <status>0x93</status>
                 <midino>0x32</midino>
                 <options>
                     <script-binding/>
                 </options>
             </control>
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x82</status>
+                <status>0x83</status>
                 <midino>0x32</midino>
                 <options>
                     <script-binding/>
@@ -316,18 +316,18 @@
 
 
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x92</status>
+                <status>0x93</status>
                 <midino>0x33</midino>
                 <options>
                     <script-binding/>
                 </options>
             </control>
             <control>
-                <group>[LayerButton]</group>
+                <group>[Spectra]</group>
                 <key>XoneChain.mapping.trigger</key>
-                <status>0x82</status>
+                <status>0x83</status>
                 <midino>0x33</midino>
                 <options>
                     <script-binding/>

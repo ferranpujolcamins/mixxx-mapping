@@ -19,6 +19,6 @@
 
     var exports = {};
     exports.status = status;
-    global.midi = exports;
+    global.midiCustom = exports;
 
 }(this));

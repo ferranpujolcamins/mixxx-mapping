@@ -13,9 +13,19 @@
         inSetValue: function(isPress) {
             if (isPress) {
                 this.controlCombo.shiftPressed();
+                this.output(1);
             } else {
                 this.controlCombo.shiftReleased();
+                this.output(0);
             }
+        },
+
+        outValueScale: function(value) {
+            return value * (this.max - this.min) + this.min;
+        },
+
+        turnOff: function() {
+            this.output(0);
         },
     });
 
@@ -64,7 +74,7 @@
 
     var ControlComboGroup = function(numberOfControlCombos) {
 
-        this.controlComboList = [];
+        this.numberOfControlCombos = numberOfControlCombos;
     
         for (var id = 0; id < numberOfControlCombos; ++id) {
     
@@ -83,6 +93,12 @@
     
         shiftPressed: function(id) {
             this.activeShiftButton = id;
+
+            for (var i = 0; i < this.numberOfControlCombos; ++i) {
+                if (i !== id) {
+                    this[i].shiftButton.turnOff();
+                }
+            }
         },
         
         shiftReleased: function(id) {
