@@ -1,30 +1,23 @@
 var XoneChain = {
 };
 
+midi.noteOn = 0x90;
+midi.on = 0x90;
+midi.noteOff = 0x80;
+midi.off = 0x80;
+midi.keyPressure = 0xA0;
+midi.kp = 0xA0;
+midi.controlChange = 0xB0;
+midi.cc == 0xB0;
+
 XoneChain.controlComboGroup = new controlcombo.ControlComboGroup(4);
 
-XoneChain.mapping = new mapping.Mapping();
+XoneChain.mapping = new mapper.MidiMapper();
 
 XoneChain.init = function() {
     components.Button.prototype.isPress = function (channel, control, value, status) {
-        return (status & 0xF0) === 0x90;
+        return (status & 0xF0) === midi.noteOn;
     }
-
-    XoneChain.controlComboGroup[0].shiftButton.midi = [0x93, 0x28];
-    XoneChain.controlComboGroup[0].shiftButton.max = 64;
-    XoneChain.controlComboGroup[0].shiftButton.min = 1;
-
-    XoneChain.controlComboGroup[1].shiftButton.midi = [0x93, 0x29];
-    XoneChain.controlComboGroup[1].shiftButton.max = 64;
-    XoneChain.controlComboGroup[1].shiftButton.min = 1;
-
-    XoneChain.controlComboGroup[2].shiftButton.midi = [0x93, 0x2A];
-    XoneChain.controlComboGroup[2].shiftButton.max = 64;
-    XoneChain.controlComboGroup[2].shiftButton.min = 1;
-
-    XoneChain.controlComboGroup[3].shiftButton.midi = [0x93, 0x2B];
-    XoneChain.controlComboGroup[3].shiftButton.max = 64;
-    XoneChain.controlComboGroup[3].shiftButton.min = 1;
 
     XoneChain.mapping.init();
 };
@@ -33,22 +26,65 @@ XoneChain.init = function() {
 // Mapping
 // =======
 
+XoneChain.mapping.mapControlComboShift = function(parameters) {
+    var i = parameters.i;
+    var channel = parameters.channel;
+    var control = parameters.control;
+    var onValue = parameters.onValue;
+    var offValue = parameters.offValue;
+
+    XoneChain.mapping.map(
+        channel,
+        control,
+        "all",
+        function(channel, control, value, status, group) {
+            XoneChain.controlComboGroup[i].shiftButton.input(channel, control, value, status, group);
+        }
+    );
+    XoneChain.controlComboGroup[i].shiftButton.midi = [
+        channel + midi.noteOn,
+        control
+    ];
+    XoneChain.controlComboGroup[i].shiftButton.max = onValue;
+    XoneChain.controlComboGroup[i].shiftButton.min = offValue;
+};
+
 XoneChain.mapping.init = function() {
 
-    XoneChain.mapping.map(3, 0x28, null, function(channel, control, value, status, group) {
-        XoneChain.controlComboGroup[0].shiftButton.input(channel, control, value, status, group);
+    // ControlCombo 1
+    XoneChain.mapping.mapControlComboShift({
+        i:          0,
+        channel:    controllers.spectra.channel,
+        control:    controllers.spectra[2][0],
+        onValue:    controllers.spectra.a,
+        offValue:   controllers.spectra.off,
     });
 
-    XoneChain.mapping.map(3, 0x29, null, function(channel, control, value, status, group) {
-        XoneChain.controlComboGroup[1].shiftButton.input(channel, control, value, status, group);
+    // ControlCombo 2
+    XoneChain.mapping.mapControlComboShift({
+        i:          1,
+        channel:    controllers.spectra.channel,
+        control:    controllers.spectra[2][1],
+        onValue:    controllers.spectra.b,
+        offValue:   controllers.spectra.off,
     });
 
-    XoneChain.mapping.map(3, 0x2A, null, function(channel, control, value, status, group) {
-        XoneChain.controlComboGroup[2].shiftButton.input(channel, control, value, status, group);
+    // ControlCombo 3
+    XoneChain.mapping.mapControlComboShift({
+        i:          2,
+        channel:    controllers.spectra.channel,
+        control:    controllers.spectra[2][2],
+        onValue:    controllers.spectra.green,
+        offValue:   controllers.spectra.off,
     });
 
-    XoneChain.mapping.map(3, 0x2B, null, function(channel, control, value, status, group) {
-        XoneChain.controlComboGroup[3].shiftButton.input(channel, control, value, status, group);
+    // ControlCombo 4
+    XoneChain.mapping.mapControlComboShift({
+        i:          3,
+        channel:    controllers.spectra.channel,
+        control:    controllers.spectra[2][3],
+        onValue:    controllers.spectra.green,
+        offValue:   controllers.spectra.off,
     });
 
 };

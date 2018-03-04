@@ -96,7 +96,7 @@
 
             for (var i = 0; i < this.numberOfControlCombos; ++i) {
                 if (i !== id) {
-                    this[i].shiftButton.turnOff();
+                    // this[i].shiftButton.turnOff();
                 }
             }
         },

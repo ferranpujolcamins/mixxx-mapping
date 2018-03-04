@@ -8,8 +8,8 @@
     <controller id="XoneChain">
         <scriptfiles>
             <file filename="lodash.mixxx.js"/>
-            <file filename="common-midi.js"/>
-            <file filename="common-mapping.js"/>
+            <file filename="midi-mapper-1.0.js"/>
+            <file filename="controllers.js"/>
             <file filename="midi-components-0.0.js"/>
             <file filename="common-controlcombo.js"/>
             <file functionprefix="XoneChain" filename="FerranXone.js"/>
@@ -17,7 +17,7 @@
         <controls>
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x93</status>
                 <midino>0x24</midino>
                 <options>
@@ -26,7 +26,7 @@
             </control>
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x83</status>
                 <midino>0x24</midino>
                 <options>
@@ -37,7 +37,7 @@
             
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x93</status>
                 <midino>0x25</midino>
                 <options>
@@ -46,7 +46,7 @@
             </control>
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x83</status>
                 <midino>0x25</midino>
                 <options>
@@ -57,7 +57,7 @@
 
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x93</status>
                 <midino>0x26</midino>
                 <options>
@@ -66,7 +66,7 @@
             </control>
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x83</status>
                 <midino>0x26</midino>
                 <options>
@@ -77,7 +77,7 @@
 
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x93</status>
                 <midino>0x27</midino>
                 <options>
@@ -86,7 +86,7 @@
             </control>
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x83</status>
                 <midino>0x27</midino>
                 <options>
@@ -97,7 +97,7 @@
 
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x93</status>
                 <midino>0x28</midino>
                 <options>
@@ -106,7 +106,7 @@
             </control>
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x83</status>
                 <midino>0x28</midino>
                 <options>
@@ -117,7 +117,7 @@
 
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x93</status>
                 <midino>0x29</midino>
                 <options>
@@ -126,7 +126,7 @@
             </control>
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x83</status>
                 <midino>0x29</midino>
                 <options>
@@ -137,7 +137,7 @@
 
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x93</status>
                 <midino>0x2A</midino>
                 <options>
@@ -146,7 +146,7 @@
             </control>
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x83</status>
                 <midino>0x2A</midino>
                 <options>
@@ -157,7 +157,7 @@
 
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x93</status>
                 <midino>0x2B</midino>
                 <options>
@@ -166,7 +166,7 @@
             </control>
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x83</status>
                 <midino>0x2B</midino>
                 <options>
@@ -177,7 +177,7 @@
 
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x93</status>
                 <midino>0x2C</midino>
                 <options>
@@ -186,7 +186,7 @@
             </control>
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x83</status>
                 <midino>0x2C</midino>
                 <options>
@@ -197,7 +197,7 @@
 
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x93</status>
                 <midino>0x2D</midino>
                 <options>
@@ -206,7 +206,7 @@
             </control>
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x83</status>
                 <midino>0x2D</midino>
                 <options>
@@ -217,7 +217,7 @@
 
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x93</status>
                 <midino>0x2E</midino>
                 <options>
@@ -226,7 +226,7 @@
             </control>
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x83</status>
                 <midino>0x2E</midino>
                 <options>
@@ -237,7 +237,7 @@
 
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x93</status>
                 <midino>0x2F</midino>
                 <options>
@@ -246,7 +246,7 @@
             </control>
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x83</status>
                 <midino>0x2F</midino>
                 <options>
@@ -257,7 +257,7 @@
 
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x93</status>
                 <midino>0x30</midino>
                 <options>
@@ -266,7 +266,7 @@
             </control>
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x83</status>
                 <midino>0x30</midino>
                 <options>
@@ -277,7 +277,7 @@
 
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x93</status>
                 <midino>0x31</midino>
                 <options>
@@ -286,7 +286,7 @@
             </control>
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x83</status>
                 <midino>0x31</midino>
                 <options>
@@ -297,7 +297,7 @@
 
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x93</status>
                 <midino>0x32</midino>
                 <options>
@@ -306,7 +306,7 @@
             </control>
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x83</status>
                 <midino>0x32</midino>
                 <options>
@@ -317,7 +317,7 @@
 
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x93</status>
                 <midino>0x33</midino>
                 <options>
@@ -326,7 +326,7 @@
             </control>
             <control>
                 <group>[Spectra]</group>
-                <key>XoneChain.mapping.trigger</key>
+                <key>XoneChain.mapping.input</key>
                 <status>0x83</status>
                 <midino>0x33</midino>
                 <options>
