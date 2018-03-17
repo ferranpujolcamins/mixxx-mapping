@@ -8,18 +8,24 @@
         this.channel = 3;
 
         // Velocity value for led colors
-        this.a = 61;
-        this.b = 67;
-
         this.off = 0;
         this.red = 13;
         this.dimRed = 19;
         this.orange = 25;
         this.dimOrange = 31;
         this.yellow =  49;
-        this.dimYellow = 55;
-        this.green = 60;
+        this.dimYellow = 62;
+        this.green = 62;
         this.dimGreen = 67;
+        this.teal = 73;
+        this.dimTeal = 80;
+        this.blue = 85;
+        this.dimBlue = 96;
+        this.purple = 100;
+        this.dimPurple = 105;
+        this.pink = 110;
+        this.dimPink = 115;
+        this.white = 126;
 
         // Create rows
         for (var i = 0; i < 4; ++i) {
