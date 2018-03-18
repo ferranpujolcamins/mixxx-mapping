@@ -61,6 +61,16 @@
     var ControlComboShiftButton = function(properties) {
 
         ControlComboButton.call(this, properties);
+
+        var self = this;
+        this.animation = new sequencer.Sequencer([
+                [25,(function () {self.send(controllers.spectra.yellow);})],
+                [25,(function () {self.send(this.valueOff);})],
+                [25,(function () {self.send(controllers.spectra.red);})],
+                [25,(function () {self.send(this.valueOff);})],
+                [25,(function () {self.send(controllers.spectra.teal);})],
+                [25,(function () {self.sendOutput();})]
+        ]);
     };
 
     ControlComboShiftButton.prototype = _.create(ControlComboButton.prototype, {
@@ -75,6 +85,10 @@
             } else {
                 this.send(this.valueOff);
             }
+        },
+
+        onMessageCaptured: function() {
+            this.animation.start();
         },
 
         unselect: function () {
@@ -95,6 +109,17 @@
 
         this.animationStep = 0;
         this.timer = null;
+
+        var self = this;
+        // TODO: this shouldn't be here, it should be settable per instance
+        this.animation = new sequencer.Sequencer([
+            [25,(function () {self.send(controllers.spectra.yellow);})],
+            [25,(function () {self.send(this.valueOff);})],
+            [25,(function () {self.send(controllers.spectra.red);})],
+            [25,(function () {self.send(this.valueOff);})],
+            [25,(function () {self.send(controllers.spectra.teal);})],
+            [25,(function () {self.send(this.valueOff);})]
+        ]);
     };
 
     ControlComboTriggerButton.prototype = _.create(ControlComboButton.prototype, {
@@ -106,39 +131,11 @@
         },
 
         animate: function() {
-            if (this.timer === null) {
-                this.animation();
-            }
+            // if (this.timer === null) {
+            //     this.animation();
+            // }
+            this.animation.start();
         },
-
-        // TODO: encapsulate in TimedSequence class or something like that
-        animation: function() {
-            var self = this;
-            if (self.animationStep == 0 && self.timer === null) {
-                self.timer = engine.beginTimer(25, function() {self.animation()});
-                this.send(controllers.spectra.yellow);
-                self.animationStep += 1;
-            } else if (self.animationStep == 1) {
-                this.send(this.valueOff);
-                self.animationStep += 1;
-            } else if (self.animationStep == 2) {
-                this.send(controllers.spectra.red);
-                self.animationStep += 1;
-            } else if (self.animationStep == 3) {
-                this.send(this.valueOff);
-                self.animationStep += 1;
-            } else if (self.animationStep == 4) {
-                this.send(controllers.spectra.teal);
-                self.animationStep += 1;
-            } else if (self.animationStep == 5) {
-                this.send(this.valueOff);
-                if (self.timer !== null) {
-                    engine.stopTimer(self.timer);
-                    self.timer = null;
-                }
-                self.animationStep = 0;
-            }
-        }
     });
 
 
@@ -196,6 +193,7 @@
         captureMessage: function (component, channel, control, value, status, group) {
             print("capture");
             this.isLoaded = true;
+            this.shiftButton.onMessageCaptured();
         }
     };
 
