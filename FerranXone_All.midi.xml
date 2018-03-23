@@ -8,10 +8,13 @@
     <controller id="XoneChain">
         <scriptfiles>
             <file filename="lodash.mixxx.js"/>
+            <file filename="common-lodash-extensions.js"/>
             <file filename="midi-mapper-1.0.js"/>
             <file filename="controllers.js"/>
             <file filename="midi-components-0.0.js"/>
+            <file filename="common-midimessage.js"/>
             <file filename="common-sequencer.js"/>
+            <file filename="common-capturable.js"/>
             <file filename="common-controlcombo.js"/>
             <file functionprefix="XoneChain" filename="FerranXone.js"/>
         </scriptfiles>

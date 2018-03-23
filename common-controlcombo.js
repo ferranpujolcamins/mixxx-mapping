@@ -1,14 +1,10 @@
 ;(function (global) {
 
-    _.create = function(a, b) {
-        var temp = Object.create(a);
-        _.assign(temp, b);
-        return temp;
-    }
-
     // TODO: proper prototyping and constructor in components
 
     // TODO: full lodash build for mixxx
+
+    // TODO: script fetching cli made with rust, via git tags
 
     /**
      * ControlComboButton
@@ -163,24 +159,45 @@
         });
         self.isLoaded = false;
         self.shiftOn = false;
+        self.componentsState = {};
     };
 
     ControlCombo.prototype = {
 
         shiftPressed: function () {
+            var self = this;
+
             this.shiftOn = true;
             this.controlComboGroup.controlComboSelected(this.id);
+
+            this.forEachComponentWithState(function (component) {
+                component.outputState(self.componentsState[component.id]);
+            });
         },
 
         shiftReleased: function () {
             this.shiftOn = false;
             this.controlComboGroup.controlComboUnSelected(this.id);
+
+            this.forEachComponentWithState(function (component) {
+                component.outputState(component.getCurrentState());
+            });
         },
 
         triggerPressed: function () {
+            var self = this;
+
             if (this.triggerButton.isOn === true &&
                 !this.shiftOn && this.isLoaded) {
                 this.triggerButton.animate();
+
+                // TODO: make this better
+                this.forEachComponentWithState(function (component) {
+                    // print(self.componentsState[component.id]);
+                    component.applyState(self.componentsState[component.id]);
+                });
+
+                this.componentsState = {};
                 this.isLoaded = false;
                 this.shiftButton.sendOutput();
             }
@@ -191,10 +208,41 @@
         },
 
         captureMessage: function (component, channel, control, value, status, group) {
-            print("capture");
-            this.isLoaded = true;
+            var newState;
+            if (!this.isLoaded) {
+                this.isLoaded = true;
+            }
+            if (this.componentsState[component.id] == undefined || this.componentsState[component.id] == null) {
+                var midiMessage = new midimessage.MidiMessage(channel, control, value, status, group);
+                newState = component.getNextState(component.getCurrentState(), midiMessage);
+                this.isLoaded = true;
+            } else {
+                var prevState = this.componentsState[component.id];
+                newState = component.getNextState(prevState, midiMessage);
+            }
+            this.componentsState[component.id] = newState;
+            component.outputState(newState);
             this.shiftButton.onMessageCaptured();
+        },
+
+        forEachComponentWithState: function(func) {
+            // TODO: make this better
+            for (var id in this.componentsState) {
+                for (var id2 in this.controlComboGroup.components) {
+                    if (id2 === id) {
+                        var component = this.controlComboGroup.components[id2];
+                        func(component);
+                    }
+                }
+            }
         }
+
+/*
+        getCurrentState: function() {
+        getNextState: function(prevState, midimessage) {
+        applyState: function(state) {
+        */
+
     };
 
 
@@ -221,12 +269,13 @@
         }
 
         // Set self as proxy to the buttons input
+
         this.components.forEachComponent(function (component) {
             if (component instanceof components.Button) {
                 var componentInput = component.input;
-                // TODO: overwriting the input function is dangerous because other libraries might do the same
+                // TODO: overwriting the input function is dangerous because other libraries might do the same, find an alternative
                 component.input = function (channel, control, value, status, group) {
-                    if (self.activeShiftButton !== null) {
+                    if (self.activeShiftButton !== null && (status & 0xF0) == midi.noteOn) {
                         self.captureMessage(component, channel, control, value, status, group);
                     } else {
                         componentInput.call(component, channel, control, value, status, group);
@@ -237,6 +286,7 @@
             //     || component.type === undefined)
             // && component.input === Button.prototype.input
         }, true);
+
     
         self.activeShiftButton = null;
     };

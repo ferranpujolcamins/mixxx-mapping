@@ -13,10 +13,44 @@ midi.cc = 0xB0;
 XoneChain.controlComboGroup = new controlcombo.ControlComboGroup({
     numberOfControlCombos: 4,
     components: {
-        sillyButton: new components.Button({
-            input: function (channel, control, value, status, group) {
-                print("button do something");
-            }
+        playButton: new capturable.CapturableButton({
+            id: "playButton",
+            group: '[Channel1]',
+            inKey: 'play',
+            outKey: 'play_indicator',
+            on: controllers.spectra.green,
+            midi: [0x90 + controllers.spectra.channel, controllers.spectra[1][0]],
+            type: components.Button.prototype.types.toggle,
+        }),
+
+        unit1Button: new capturable.CapturableButton({
+            id: "unit1Button",
+            group: '[EffectRack1_EffectUnit1_Effect1]',
+            inKey: 'enabled',
+            outKey: 'enabled',
+            on: controllers.spectra.orange,
+            midi: [0x90 + controllers.spectra.channel, controllers.spectra[1][1]],
+            type: components.Button.prototype.types.toggle,
+        }),
+
+        unit2Button: new capturable.CapturableButton({
+            id: "unit2Button",
+            group: '[EffectRack1_EffectUnit1_Effect2]',
+            inKey: 'enabled',
+            outKey: 'enabled',
+            on: controllers.spectra.orange,
+            midi: [0x90 + controllers.spectra.channel, controllers.spectra[1][2]],
+            type: components.Button.prototype.types.toggle,
+        }),
+
+        unit3Button: new capturable.CapturableButton({
+            id: "unit3Button",
+            group: '[EffectRack1_EffectUnit1_Effect3]',
+            inKey: 'enabled',
+            outKey: 'enabled',
+            on: controllers.spectra.orange,
+            midi: [0x90 + controllers.spectra.channel, controllers.spectra[1][3]],
+            type: components.Button.prototype.types.toggle,
         })
     }
 });
@@ -93,7 +127,34 @@ XoneChain.mapping.init = function() {
         controllers.spectra[1][0],
         "all",
         function(channel, control, value, status, group) {
-            XoneChain.controlComboGroup.components.sillyButton.input(channel, control, value, status, group);
+            XoneChain.controlComboGroup.components.playButton.input(channel, control, value, status, group);
+        }
+    );
+
+    XoneChain.mapping.map(
+        controllers.spectra.channel,
+        controllers.spectra[1][1],
+        "all",
+        function(channel, control, value, status, group) {
+            XoneChain.controlComboGroup.components.unit1Button.input(channel, control, value, status, group);
+        }
+    );
+
+    XoneChain.mapping.map(
+        controllers.spectra.channel,
+        controllers.spectra[1][2],
+        "all",
+        function(channel, control, value, status, group) {
+            XoneChain.controlComboGroup.components.unit2Button.input(channel, control, value, status, group);
+        }
+    );
+
+    XoneChain.mapping.map(
+        controllers.spectra.channel,
+        controllers.spectra[1][3],
+        "all",
+        function(channel, control, value, status, group) {
+            XoneChain.controlComboGroup.components.unit3Button.input(channel, control, value, status, group);
         }
     );
 
