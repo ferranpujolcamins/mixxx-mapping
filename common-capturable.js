@@ -29,6 +29,29 @@
     var CapturableButton = function(properties) {
 
         components.Button.call(this, properties);
+
+        // TODO: move this
+        var self = this;
+        var initialBlinkInterval = 75;
+        this.animation = new sequencer.Sequencer({
+            steps: [
+                [0,(function () {self.output(self.animation.newState);})],
+                [initialBlinkInterval,(function () {self.output(self.animation.currentState);})],
+                [initialBlinkInterval,(function () {self.output(self.animation.newState);})],
+                [initialBlinkInterval,(function () {self.output(self.animation.currentState);})],
+                [initialBlinkInterval,(function () {self.output(self.animation.newState);})],
+                [initialBlinkInterval,(function () {self.output(self.animation.currentState);})],
+                [initialBlinkInterval,(function () {self.output(self.animation.newState);})],
+                [initialBlinkInterval,(function () {self.output(self.animation.currentState);})],
+                [initialBlinkInterval,(function () {self.output(self.animation.newState);})],
+
+                [925,(function () {self.output(self.animation.currentState);})],
+                [25,(function () {self.output(self.animation.newState);})],
+                [25,(function () {self.output(self.animation.currentState);})],
+                [25,(function () {self.output(self.animation.newState);})],
+            ],
+            loop: 9
+        });
     };
 
     CapturableButton.prototype = _.create(components.Button.prototype, {
@@ -49,7 +72,15 @@
         },
 
         outputState: function (state) {
+            this.animation.stop();
             this.output(state);
+        },
+
+        // TODO: we should not assume that an animation is wanted here. subclasses should decide that, so they can change animation according to state too
+        outputStatePreview: function (currentState, newState) {
+            this.animation.currentState = currentState;
+            this.animation.newState = newState;
+            this.animation.start();
         }
 
         // input: function (channel, control, value, status, group) {

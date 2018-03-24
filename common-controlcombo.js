@@ -59,14 +59,17 @@
         ControlComboButton.call(this, properties);
 
         var self = this;
-        this.animation = new sequencer.Sequencer([
-                [25,(function () {self.send(controllers.spectra.yellow);})],
-                [25,(function () {self.send(this.valueOff);})],
-                [25,(function () {self.send(controllers.spectra.red);})],
-                [25,(function () {self.send(this.valueOff);})],
-                [25,(function () {self.send(controllers.spectra.teal);})],
-                [25,(function () {self.sendOutput();})]
-        ]);
+        this.animation = new sequencer.Sequencer({
+            steps: [
+                    [25,(function () {self.send(controllers.spectra.yellow);})],
+                    [25,(function () {self.send(this.valueOff);})],
+                    [25,(function () {self.send(controllers.spectra.red);})],
+                    [25,(function () {self.send(this.valueOff);})],
+                    [25,(function () {self.send(controllers.spectra.teal);})],
+                    [25,(function () {self.sendOutput();})]
+            ],
+            loop: false
+        });
     };
 
     ControlComboShiftButton.prototype = _.create(ControlComboButton.prototype, {
@@ -108,14 +111,17 @@
 
         var self = this;
         // TODO: this shouldn't be here, it should be settable per instance
-        this.animation = new sequencer.Sequencer([
-            [25,(function () {self.send(controllers.spectra.yellow);})],
-            [25,(function () {self.send(this.valueOff);})],
-            [25,(function () {self.send(controllers.spectra.red);})],
-            [25,(function () {self.send(this.valueOff);})],
-            [25,(function () {self.send(controllers.spectra.teal);})],
-            [25,(function () {self.send(this.valueOff);})]
-        ]);
+        this.animation = new sequencer.Sequencer({
+            steps: [
+                [25,(function () {self.send(controllers.spectra.yellow);})],
+                [25,(function () {self.send(this.valueOff);})],
+                [25,(function () {self.send(controllers.spectra.red);})],
+                [25,(function () {self.send(this.valueOff);})],
+                [25,(function () {self.send(controllers.spectra.teal);})],
+                [25,(function () {self.send(this.valueOff);})]
+            ],
+            loop: false
+        });
     };
 
     ControlComboTriggerButton.prototype = _.create(ControlComboButton.prototype, {
@@ -171,7 +177,7 @@
             this.controlComboGroup.controlComboSelected(this.id);
 
             this.forEachComponentWithState(function (component) {
-                component.outputState(self.componentsState[component.id]);
+                component.outputStatePreview(component.getCurrentState(), self.componentsState[component.id]);
             });
         },
 
@@ -212,16 +218,16 @@
             if (!this.isLoaded) {
                 this.isLoaded = true;
             }
+            var prevState = this.componentsState[component.id];
             if (this.componentsState[component.id] == undefined || this.componentsState[component.id] == null) {
                 var midiMessage = new midimessage.MidiMessage(channel, control, value, status, group);
                 newState = component.getNextState(component.getCurrentState(), midiMessage);
                 this.isLoaded = true;
             } else {
-                var prevState = this.componentsState[component.id];
                 newState = component.getNextState(prevState, midiMessage);
             }
             this.componentsState[component.id] = newState;
-            component.outputState(newState);
+            component.outputStatePreview(prevState, newState);
             this.shiftButton.onMessageCaptured();
         },
 
