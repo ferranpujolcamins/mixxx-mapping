@@ -25,7 +25,7 @@
      * ==========
      * 
      * In you mapping xml file, assign MidiMapper.input to all the midi controls
-     * and add <file filename="common-mapper.js"/> in the <scriptfiles> section.
+     * and add <file filename="midi-mapper-1.0.js"/> in the <scriptfiles> section.
      * 
      * In your JavaScript file, create a new mapper.MidiMapper();
      * In your script init function call the map function on your mapper
@@ -45,7 +45,9 @@
          *                                   The channel byte is ignored, so you can either pass 0x90 or 0x92,
          *                                   the channel that is mapped is the one described in channel parameter.
          *                                   Alternatively, you can pass a string to map the control for any status.
-         * @param {function} func - A function that will be called when the mapped midi signal is recieved.
+        * @param {
+        function
+    } func - A function that will be called when the mapped midi signal is received.
          *                          The function is passed the following parameters:
          *                          (channel, control, value, status, group)
          * 
@@ -72,8 +74,7 @@
             }
         },
     
-        input: function(channel, control, value, status, group) {
-
+        input: function (channel, control, value, status, group) {
             var statusNormalized = status & 0xF0;
     
             // If control not mapped do nothing
@@ -84,7 +85,6 @@
             var controlFuncOrObject = this[channel][control];
 
             if (typeof controlFuncOrObject === "function") {
-
                 controlFuncOrObject(channel, control, value, status, group);
 
             } else if (typeof controlFuncOrObject === "object") {

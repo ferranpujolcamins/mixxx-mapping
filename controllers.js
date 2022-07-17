@@ -42,9 +42,46 @@
         }
     };
 
+    var KStrip = function (number) {
+        var buttons = [
+            "bottomButton4",
+            "bottomButton3",
+            "bottomButton2",
+            "bottomButton1",
+            "topButton3",
+            "topButton2",
+            "topButton1",
+            "encoderButton"
+        ];
+        var noteNumber = 24 + number;
+        for (var button in buttons) {
+            this[button] = noteNumber;
+            noteNumber += 4;
+        }
+        this.encoder = number;
+        this.fader = 16 + number;
+        this.topKnob = 4 + number;
+        this.middleKnob = 8 + number;
+        this.bottomKnob = 12 + number;
+    }
+
+    var K1 = function () {
+        this.channel = 0;
+        for (var i = 0; i < 4; ++i) {
+            this[i] = new KStrip(i);
+        }
+
+        this.leftButton = 12;
+        this.rightButton = 15;
+        this.leftEncoderButton = 13;
+        this.rightEncoderButton = 14;
+        this.leftEncoder = 20;
+        this.rightEncoder = 21;
+    }
 
     var exports = {};
     exports.spectra = new Spectra();
+    exports.k1 = new K1();
     global.controllers = exports;
 
 }(this));
