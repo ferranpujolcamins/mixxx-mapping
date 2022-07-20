@@ -42,6 +42,8 @@
         }
     };
 
+    // Xone K1
+    // =======
     var KStrip = function (number) {
         var buttons = [
             "bottomButton4",
