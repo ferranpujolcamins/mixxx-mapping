@@ -2,21 +2,31 @@ var FerranMapping = {
 };
 
 // Midi Fighter Twister
-    // ====================
+// ====================
 
-var Twister = function () {
+// options is a matrix of {button:, encoder:} options
+var TwisterOptions = function () {
+    for (let i = 0; i < 4; ++i) {
+        this[i] = {};
+        for (let j = 0; j < 4; ++j) {
+            this[i][j] = { encoder: {}, button: {} };
+        }
+    }
+}
+
+var Twister = function (options) {
     this.encodersChannel = 0;
     this.buttonsChannel = 1;
-
     for (let row = 0; row < 4; ++row) {
         this[row] = {};
         for (let column = 0; column < 4; ++column) {
             let cc = row * 4 + column;
             this[row][column] = {
-                button: new Button(),
-                encoder: new TwisterEncoder({
-                    midi: [0xB0 + this.encodersChannel, cc]
-                })
+                button: new Button(options[row][column].button),
+                encoder: new TwisterEncoder(
+                    _.assign(options[row][column].encoder,
+                        { midi: [0xB0 + this.encodersChannel, cc] })
+                )
             };
         }
     }
@@ -41,7 +51,7 @@ Twister.prototype = new components.ComponentContainer({
                 .input(channel, control, value, status, group);
         }
     }
-    });
+});
 
 const TwisterEncoder = function (options) {
     this.resolution = 0.01;
@@ -50,9 +60,10 @@ const TwisterEncoder = function (options) {
 
 TwisterEncoder.prototype = new components.Component({
     inValueScale: function (value) {
-        // TODO: take into account min and max values of the control
-        console.log(this.inGetParameter() + (value - 64) * this.resolution);
         return this.inGetParameter() + (value - 64) * this.resolution;
+    },
+    outValueScale: function (value) {
+        return value * this.max;
     }
 });
 
@@ -62,9 +73,11 @@ FerranMapping.init = function () {
         this.deck[i] = new Deck(i + 1);
     }
 
-    this.twister = new Twister();
-    this.twister[0][0].encoder.group = "[Channel1]";
-    this.twister[0][0].encoder.inKey = "volume";
+    var options = new TwisterOptions();
+    options[0][0].encoder.group = "[Channel1]";
+    options[0][0].encoder.key = "volume";
+
+    this.twister = new Twister(options);
 };
 
 FerranMapping.input = function (channel, control, value, status, group) {
