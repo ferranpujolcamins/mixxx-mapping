@@ -41,14 +41,17 @@ Twister.prototype = new components.ComponentContainer({
         }
 
         if (status == 0xB0 + this.encodersChannel) {
-            this[row][column]
-                .encoder
-                .input(channel, control, value, status, group);
+            if (typeof this[row][column].encoder.input === "function") {
+                this[row][column]
+                    .encoder
+                    .input(channel, control, value, status, group);
+            }
         } else if (status == 0x90 + this.buttonsChannel || status == 0x80 + this.buttonsChannel) {
-            // TODO: can't we just use status on the if condition?
-            this[row][column]
-                .button
-                .input(channel, control, value, status, group);
+            if (typeof this[row][column].button.input === "function") {
+                this[row][column]
+                    .button
+                    .input(channel, control, value, status, group);
+            }
         }
     }
 });
@@ -74,8 +77,14 @@ FerranMapping.init = function () {
     }
 
     var options = new TwisterOptions();
-    options[0][0].encoder.group = "[Channel1]";
-    options[0][0].encoder.key = "volume";
+    options[0][0].encoder.group = "[EqualizerRack1_[Channel1]_Effect1]";
+    options[0][0].encoder.key = "parameter3";
+
+    options[1][0].encoder.group = "[EqualizerRack1_[Channel1]_Effect1]";
+    options[1][0].encoder.key = "parameter2";
+
+    options[2][0].encoder.group = "[EqualizerRack1_[Channel1]_Effect1]";
+    options[2][0].encoder.key = "parameter1";
 
     this.twister = new Twister(options);
 };
