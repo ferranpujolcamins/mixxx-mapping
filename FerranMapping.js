@@ -9,7 +9,10 @@ var TwisterOptions = function () {
     for (let i = 0; i < 4; ++i) {
         this[i] = {};
         for (let j = 0; j < 4; ++j) {
-            this[i][j] = { encoder: {}, button: {} };
+            this[i][j] = {
+                encoder: {},
+                button: {}
+            };
         }
     }
 }
@@ -58,6 +61,7 @@ Twister.prototype = new components.ComponentContainer({
 
 const TwisterEncoder = function (options) {
     this.resolution = 0.01;
+    this.hasDetent = false;
     components.Component.call(this, options);
 };
 
@@ -66,7 +70,10 @@ TwisterEncoder.prototype = new components.Component({
         return this.inGetParameter() + (value - 64) * this.resolution;
     },
     outValueScale: function (value) {
-        return value * this.max;
+        // TODO: improve this in mixxx
+        var param = this.outGetParameter();
+
+        return param * this.max;
     }
 });
 
@@ -77,12 +84,15 @@ FerranMapping.init = function () {
     }
 
     var options = new TwisterOptions();
+    options[0][0].encoder.hasDetent = true;
     options[0][0].encoder.group = "[EqualizerRack1_[Channel1]_Effect1]";
     options[0][0].encoder.key = "parameter3";
 
+    options[1][0].encoder.hasDetent = true;
     options[1][0].encoder.group = "[EqualizerRack1_[Channel1]_Effect1]";
     options[1][0].encoder.key = "parameter2";
 
+    options[2][0].encoder.hasDetent = true;
     options[2][0].encoder.group = "[EqualizerRack1_[Channel1]_Effect1]";
     options[2][0].encoder.key = "parameter1";
 
