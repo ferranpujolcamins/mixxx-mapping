@@ -96,6 +96,9 @@ FerranMapping.init = function () {
     options[2][0].encoder.group = "[EqualizerRack1_[Channel1]_Effect1]";
     options[2][0].encoder.key = "parameter1";
 
+    options[3][0].encoder.group = "[Channel1]";
+    options[3][0].encoder.key = "volume";
+
     this.twister = new Twister(options);
 };
 
