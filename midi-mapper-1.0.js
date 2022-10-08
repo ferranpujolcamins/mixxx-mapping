@@ -45,7 +45,7 @@
          *                                   The channel byte is ignored, so you can either pass 0x90 or 0x92,
          *                                   the channel that is mapped is the one described in channel parameter.
          *                                   Alternatively, you can pass a string to map the control for any status.
-         * @param {function} func - A function that will be called when the mapped midi signal is recieved.
+         * @param {function} func - A function that will be called when the mapped midi signal is received.
          *                          The function is passed the following parameters:
          *                          (channel, control, value, status, group)
          * 
