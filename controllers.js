@@ -5,7 +5,7 @@
 
     var Spectra = function() {
 
-        this.channel = 3;
+        this.midiChannel = 3;
 
         // Velocity value for led colors
         this.off = 0;
@@ -42,9 +42,30 @@
         }
     };
 
+    // K1
+    // ====================
+
+    var K1 = function (channel) {
+        this.channel = channel;
+
+        var Channel = function (i) {
+            this.fader = 16 + i
+            this.button1 = 36 + i
+            this.button2 = 32 + i
+            this.button3 = 28 + i
+            this.button4 = 24 + i
+        };
+
+        for (var i = 0; i < 3; ++i) {
+            this[i] = new Channel(i);
+        }
+    }
+
 
     var exports = {};
     exports.spectra = new Spectra();
+    exports.k1_1 = new K1(0);
+    exports.k1_2 = new K1(1);
     global.controllers = exports;
 
 }(this));
