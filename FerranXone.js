@@ -63,11 +63,17 @@ XoneChain.Channel = function (mixxxChannel, controllerChannel, midiChannel) {
     this.mute = new capturable.CapturableButton({
         id: "muteButton",
         group: this.group,
-        inKey: "mute",
-        outKey: "mute",
+        key: "mute",
         outValueScale: function (value) { return (1 - value) * this.max; },
         // TODO: midi specified here?
         midi: [midi.noteOn + midiChannel, controllers.k1_1[controllerChannel].button4],
+        type: components.Button.prototype.types.toggle
+    })
+
+    this.pfl = new components.Button({
+        group: this.group,
+        key: "pfl",
+        midi: [midi.noteOn + midiChannel, controllers.k1_1[controllerChannel].encoderButton],
         type: components.Button.prototype.types.toggle
     })
 
@@ -105,6 +111,13 @@ XoneChain.Channel = function (mixxxChannel, controllerChannel, midiChannel) {
 
         XoneChain.mapping.map(
             midiChannel,
+            controllers.k1_1[controllerChannel].encoder,
+            "all",
+            self.gain
+        );
+
+        XoneChain.mapping.map(
+            midiChannel,
             controllers.k1_1[controllerChannel].button4,
             "all",
             self.mute
@@ -112,9 +125,9 @@ XoneChain.Channel = function (mixxxChannel, controllerChannel, midiChannel) {
 
         XoneChain.mapping.map(
             midiChannel,
-            controllers.k1_1[controllerChannel].encoder,
+            controllers.k1_1[controllerChannel].encoderButton,
             "all",
-            self.gain
+            self.pfl
         );
 
         // TODO: this is ugly
