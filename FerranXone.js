@@ -41,14 +41,38 @@ XoneChain.Channel = function (mixxxChannel, controllerChannel, midiChannel) {
         inKey: "parameter3"
     })
 
+    this.eqHighButton = new capturable.CapturableButton({
+        id: "eqHighButton" + mixxxChannel,
+        group: this.eqGroup,
+        key: "button_parameter3",
+        midi: [midi.noteOn + midiChannel, controllers.k1_1[controllerChannel].button1],
+        type: components.Button.prototype.types.toggle
+    })
+
     this.eqMid = new components.Pot({
         group: this.eqGroup,
         inKey: "parameter2"
     })
 
+    this.eqMidButton = new capturable.CapturableButton({
+        id: "eqMidButton" + mixxxChannel,
+        group: this.eqGroup,
+        key: "button_parameter2",
+        midi: [midi.noteOn + midiChannel, controllers.k1_1[controllerChannel].button2],
+        type: components.Button.prototype.types.toggle
+    })
+
     this.eqLow = new components.Pot({
         group: this.eqGroup,
         inKey: "parameter1"
+    })
+
+    this.eqLowButton = new capturable.CapturableButton({
+        id: "eqLowButton" + mixxxChannel,
+        group: this.eqGroup,
+        key: "button_parameter1",
+        midi: [midi.noteOn + midiChannel, controllers.k1_1[controllerChannel].button3],
+        type: components.Button.prototype.types.toggle
     })
 
     this.fader = new components.Pot({
@@ -88,6 +112,13 @@ XoneChain.Channel = function (mixxxChannel, controllerChannel, midiChannel) {
 
         XoneChain.mapping.map(
             midiChannel,
+            controllers.k1_1[controllerChannel].button1,
+            "all",
+            this.eqHighButton
+        );
+
+        XoneChain.mapping.map(
+            midiChannel,
             controllers.k1_1[controllerChannel].knob2,
             "all",
             this.eqMid
@@ -95,9 +126,23 @@ XoneChain.Channel = function (mixxxChannel, controllerChannel, midiChannel) {
 
         XoneChain.mapping.map(
             midiChannel,
+            controllers.k1_1[controllerChannel].button2,
+            "all",
+            this.eqMidButton
+        );
+
+        XoneChain.mapping.map(
+            midiChannel,
             controllers.k1_1[controllerChannel].knob3,
             "all",
             this.eqLow
+        );
+
+        XoneChain.mapping.map(
+            midiChannel,
+            controllers.k1_1[controllerChannel].button3,
+            "all",
+            this.eqLowButton
         );
 
         XoneChain.mapping.map(

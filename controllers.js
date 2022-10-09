@@ -54,11 +54,14 @@
             this.knob1 = 4 + i
             this.knob2 = 8 + i
             this.knob3 = 12 + i
+            this.button1 = 0x30 + i
+            this.button2 = 0x2C + i
+            this.button3 = 0x28 + i
             this.fader = 16 + i
             this.button4 = 0x24 + i
-            this.button5 = 32 + i
-            this.button6 = 28 + i
-            this.button7 = 24 + i
+            this.button5 = 0x20 + i
+            this.button6 = 0x1C + i
+            this.button7 = 0x18 + i
         };
 
         for (var i = 0; i < 4; ++i) {
