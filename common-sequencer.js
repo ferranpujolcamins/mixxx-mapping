@@ -82,7 +82,7 @@
                     this.stepIndex += 1;
                     this.timer = null;
                     this.executeStep();
-                }, true);
+                }.bind(this), true);
             } else {
                 // TODO: this check agasint false is wrong, loop is int
                 if (this.loop !== false) {

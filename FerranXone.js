@@ -10,6 +10,8 @@ midi.kp = 0xA0;
 midi.controlChange = 0xB0;
 midi.cc = 0xB0;
 
+XoneChain.numChannels = 4;
+
 XoneChain.capturableComponents = {};
 
 XoneChain.Encoder = function (options) {
@@ -61,7 +63,7 @@ XoneChain.Channel = function (mixxxChannel, controllerChannel, midiChannel) {
     })
 
     this.mute = new capturable.CapturableButton({
-        id: "muteButton",
+        id: "muteButton" + mixxxChannel,
         group: this.group,
         key: "mute",
         outValueScale: function (value) { return (1 - value) * this.max; },
@@ -129,8 +131,9 @@ XoneChain.Channel = function (mixxxChannel, controllerChannel, midiChannel) {
             "all",
             self.pfl
         );
+    }
 
-        // TODO: this is ugly
+    this.registerCapturableControls = function () {
         XoneChain.capturableComponents.mute = this.mute;
     }
 };
@@ -147,15 +150,72 @@ XoneChain.init = function() {
     // XoneChain[4] = new XoneChain.Channel(4, 1);
     // XoneChain[5] = new XoneChain.Channel(5, 1);
 
+    XoneChain.mapping = new mapper.MidiMapper();
+
+
+    // Channels
+    for (var i = 0; i < XoneChain.numChannels; ++i) {
+        XoneChain[i].registerCapturableControls();
+    }
+
     XoneChain.controlComboGroup = new controlcombo.ControlComboGroup({
         numberOfControlCombos: 4,
         components: XoneChain.capturableComponents
     });
 
-    XoneChain.mapping = new mapper.MidiMapper();
-    XoneChain.mappingInit();
-};
+    // Channels
+    for (var i = 0; i < XoneChain.numChannels; ++i) {
+        XoneChain[i].map();
+    }
 
+    // ControlCombo 1
+    XoneChain.mapControlComboShift({
+        i: 0,
+        channel: controllers.k1_2.midiChannel,
+        control: controllers.k1_2[2].button4,
+    });
+    XoneChain.mapControlComboTrigger({
+        i: 0,
+        channel: controllers.k1_2.midiChannel,
+        control: controllers.k1_2[3].button4,
+    });
+
+    // ControlCombo 2
+    XoneChain.mapControlComboShift({
+        i: 1,
+        channel: controllers.k1_2.midiChannel,
+        control: controllers.k1_2[2].button5,
+    });
+    XoneChain.mapControlComboTrigger({
+        i: 1,
+        channel: controllers.k1_2.midiChannel,
+        control: controllers.k1_2[3].button5,
+    });
+
+    // ControlCombo 3
+    XoneChain.mapControlComboShift({
+        i: 2,
+        channel: controllers.k1_2.midiChannel,
+        control: controllers.k1_2[2].button6,
+    });
+    XoneChain.mapControlComboTrigger({
+        i: 2,
+        channel: controllers.k1_2.midiChannel,
+        control: controllers.k1_2[3].button6,
+    });
+
+    // ControlCombo 4
+    XoneChain.mapControlComboShift({
+        i: 3,
+        channel: controllers.k1_2.midiChannel,
+        control: controllers.k1_2[2].button7,
+    });
+    XoneChain.mapControlComboTrigger({
+        i: 3,
+        channel: controllers.k1_2.midiChannel,
+        control: controllers.k1_2[3].button7,
+    });
+};
 
 // Mapping
 // =======
@@ -209,61 +269,4 @@ XoneChain.mapControlComboTrigger = function (parameters) {
     XoneChain.controlComboGroup[i].triggerButton.valueOn = valueOn;
     XoneChain.controlComboGroup[i].triggerButton.valueLoaded = valueLoaded;
     XoneChain.controlComboGroup[i].triggerButton.valueOff = valueOff;
-};
-
-XoneChain.mappingInit = function () {
-    console.log("Mapping init")
-
-    // ControlCombo 1
-    XoneChain.mapControlComboShift({
-        i:          0,
-        channel: controllers.k1_2.midiChannel,
-        control: controllers.k1_2[2].button4,
-    });
-    XoneChain.mapControlComboTrigger({
-        i:          0,
-        channel: controllers.k1_2.midiChannel,
-        control: controllers.k1_2[3].button4,
-    });
-
-    // ControlCombo 2
-    XoneChain.mapControlComboShift({
-        i:          1,
-        channel: controllers.k1_2.midiChannel,
-        control: controllers.k1_2[2].button5,
-    });
-    XoneChain.mapControlComboTrigger({
-        i:          1,
-        channel: controllers.k1_2.midiChannel,
-        control: controllers.k1_2[3].button5,
-    });
-
-    // ControlCombo 3
-    XoneChain.mapControlComboShift({
-        i:          2,
-        channel: controllers.k1_2.midiChannel,
-        control: controllers.k1_2[2].button6,
-    });
-    XoneChain.mapControlComboTrigger({
-        i:          2,
-        channel: controllers.k1_2.midiChannel,
-        control: controllers.k1_2[3].button6,
-    });
-
-    // ControlCombo 4
-    XoneChain.mapControlComboShift({
-        i:          3,
-        channel: controllers.k1_2.midiChannel,
-        control: controllers.k1_2[2].button7,
-    });
-    XoneChain.mapControlComboTrigger({
-        i:          3,
-        channel: controllers.k1_2.midiChannel,
-        control: controllers.k1_2[3].button7,
-    });
-
-    // Channels
-    for (var i = 0; i < 4; ++i) {
-        XoneChain[i].map();
-    }
 };
