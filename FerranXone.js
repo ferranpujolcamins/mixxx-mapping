@@ -30,9 +30,9 @@ XoneChain.Encoder.prototype = _.create(components.Encoder.prototype, {
     }
 })
 
-XoneChain.Channel = function (i, channel) {
+XoneChain.Channel = function (mixxxChannel, controllerChannel, midiChannel) {
     console.log("Channel constructor")
-    this.group = "[Channel" + (i + 1) + "]";
+    this.group = "[Channel" + (mixxxChannel + 1) + "]";
     this.eqGroup = "[EqualizerRack1_" + this.group + "_Effect1]"
 
     this.eqHigh = new components.Pot({
@@ -66,7 +66,7 @@ XoneChain.Channel = function (i, channel) {
         inKey: "mute",
         outKey: "mute",
         // TODO: midi specified here?
-        midi: [midi.noteOn + channel, controllers.k1_1[i].button4],
+        midi: [midi.noteOn + midiChannel, controllers.k1_1[controllerChannel].button4],
         type: components.Button.prototype.types.toggle
     })
 
@@ -75,43 +75,43 @@ XoneChain.Channel = function (i, channel) {
         console.log("Channel map")
 
         XoneChain.mapping.map(
-            channel,
-            controllers.k1_1[i].knob1,
+            midiChannel,
+            controllers.k1_1[controllerChannel].knob1,
             "all",
             self.eqHigh
         );
 
         XoneChain.mapping.map(
-            channel,
-            controllers.k1_1[i].knob2,
+            midiChannel,
+            controllers.k1_1[controllerChannel].knob2,
             "all",
             self.eqMid
         );
 
         XoneChain.mapping.map(
-            channel,
-            controllers.k1_1[i].knob3,
+            midiChannel,
+            controllers.k1_1[controllerChannel].knob3,
             "all",
             self.eqLow
         );
 
         XoneChain.mapping.map(
-            channel,
-            controllers.k1_1[i].fader,
+            midiChannel,
+            controllers.k1_1[controllerChannel].fader,
             "all",
             self.fader
         );
 
         XoneChain.mapping.map(
-            channel,
-            controllers.k1_1[i].button4,
+            midiChannel,
+            controllers.k1_1[controllerChannel].button4,
             "all",
             self.mute
         );
 
         XoneChain.mapping.map(
-            channel,
-            controllers.k1_1[i].encoder,
+            midiChannel,
+            controllers.k1_1[controllerChannel].encoder,
             "all",
             self.gain
         );
@@ -126,10 +126,10 @@ XoneChain.init = function() {
         return (status & 0xF0) === midi.noteOn;
     };
 
-    XoneChain[0] = new XoneChain.Channel(0, 0);
-    XoneChain[1] = new XoneChain.Channel(1, 0);
-    XoneChain[2] = new XoneChain.Channel(2, 0);
-    XoneChain[3] = new XoneChain.Channel(3, 0);
+    XoneChain[0] = new XoneChain.Channel(2, 0, 0);
+    XoneChain[1] = new XoneChain.Channel(0, 1, 0);
+    XoneChain[2] = new XoneChain.Channel(1, 2, 0);
+    XoneChain[3] = new XoneChain.Channel(3, 3, 0);
     // XoneChain[4] = new XoneChain.Channel(4, 1);
     // XoneChain[5] = new XoneChain.Channel(5, 1);
 
