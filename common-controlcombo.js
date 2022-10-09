@@ -269,8 +269,8 @@
                 var componentInput = component.input;
                 // TODO: overwriting the input function is dangerous because other libraries might do the same, find an alternative
                 component.input = (channel, control, value, status, group) => {
-                    if (this.activeShiftButton !== null && (status & 0xF0) == midi.noteOn) {
-                        self.captureMessage.bind(self).call(component, channel, control, value, status, group);
+                    if (self.activeShiftButton !== null && (status & 0xF0) == midi.noteOn) {
+                        self.captureMessage.bind(self, component, channel, control, value, status, group).call();
                     } else {
                         componentInput.call(component, channel, control, value, status, group);
                     }

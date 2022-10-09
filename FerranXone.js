@@ -62,7 +62,7 @@ XoneChain.Channel = function (mixxxChannel, controllerChannel, midiChannel) {
     })
 
     this.mute = new capturable.CapturableButton({
-        id: "muteButton" + mixxxChannel,
+        id: "mute" + mixxxChannel,
         group: this.group,
         key: "mute",
         outValueScale: function (value) { return (1 - value) * this.max; },
