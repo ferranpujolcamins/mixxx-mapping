@@ -46,17 +46,20 @@
     // ====================
 
     var K1 = function (channel) {
-        this.channel = channel;
+        this.midiChannel = channel;
 
         var Channel = function (i) {
+            this.knob1 = 4 + i
+            this.knob2 = 8 + i
+            this.knob3 = 12 + i
             this.fader = 16 + i
-            this.button1 = 36 + i
-            this.button2 = 32 + i
-            this.button3 = 28 + i
-            this.button4 = 24 + i
+            this.button4 = 0x24 + i
+            this.button5 = 32 + i
+            this.button6 = 28 + i
+            this.button7 = 24 + i
         };
 
-        for (var i = 0; i < 3; ++i) {
+        for (var i = 0; i < 4; ++i) {
             this[i] = new Channel(i);
         }
     }

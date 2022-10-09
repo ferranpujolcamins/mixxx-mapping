@@ -47,7 +47,9 @@
          *                                   Alternatively, you can pass a string to map the control for any status.
          * @param {function} func - A function that will be called when the mapped midi signal is received.
          *                          The function is passed the following parameters:
-         *                          (channel, control, value, status, group)
+        *                          (channel, control, value, status, group).
+        *
+        *                          Alternatively, an object having such function.
          * 
          * @example <caption>Map control 20 of channel 2 for any midi status</caption>
          * mapper.map(2, 0x14, "all", myCallback);
@@ -55,7 +57,12 @@
          * @example <caption>Map noteOn of control 20 channel 2</caption>
          * mapper.map(2, 20, 0x90, myCallback);
          */
-        map: function(channel, control, status, func) {
+        map: function (channel, control, status, funcOrObject) {
+
+            var func = funcOrObject;
+            if (typeof func === "object") {
+                func = func.input.bind(func);
+            }
 
             if (typeof this[channel] === "undefined") {
                 this[channel] = {};
@@ -84,7 +91,6 @@
             var controlFuncOrObject = this[channel][control];
 
             if (typeof controlFuncOrObject === "function") {
-
                 controlFuncOrObject(channel, control, value, status, group);
 
             } else if (typeof controlFuncOrObject === "object") {

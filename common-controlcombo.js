@@ -317,9 +317,7 @@
 
         captureMessage: function(component, channel, control, value, status, group) {
             if (this.activeShiftButton == null) { return; }
-
             this[this.activeShiftButton].captureMessage(component, channel, control, value, status, group);
-
         }
     };
 

@@ -10,69 +10,106 @@ midi.kp = 0xA0;
 midi.controlChange = 0xB0;
 midi.cc = 0xB0;
 
-XoneChain.controlComboGroup = new controlcombo.ControlComboGroup({
-    numberOfControlCombos: 4,
-    components: {
-        playButton: new capturable.CapturableButton({
-            id: "playButton",
-            group: '[Channel1]',
-            inKey: 'play',
-            outKey: 'play_indicator',
-            on: controllers.spectra.green,
-            midi: [0x90 + controllers.spectra.midiChannel, controllers.spectra[1][0]],
-            type: components.Button.prototype.types.toggle,
-        }),
+XoneChain.capturableComponents = {};
 
-        unit1Button: new capturable.CapturableButton({
-            id: "unit1Button",
-            group: '[EffectRack1_EffectUnit1_Effect1]',
-            inKey: 'enabled',
-            outKey: 'enabled',
-            on: controllers.spectra.orange,
-            midi: [0x90 + controllers.spectra.midiChannel, controllers.spectra[1][1]],
-            type: components.Button.prototype.types.toggle,
-        }),
+XoneChain.Channel = function (i, channel) {
+    console.log("Channel constructor")
+    this.group = "[Channel" + (i + 1) + "]";
+    this.eqGroup = "[EqualizerRack1_" + this.group + "_Effect1]"
 
-        unit2Button: new capturable.CapturableButton({
-            id: "unit2Button",
-            group: '[EffectRack1_EffectUnit1_Effect2]',
-            inKey: 'enabled',
-            outKey: 'enabled',
-            on: controllers.spectra.orange,
-            midi: [0x90 + controllers.spectra.midiChannel, controllers.spectra[1][2]],
-            type: components.Button.prototype.types.toggle,
-        }),
+    this.eqHigh = new components.Pot({
+        group: this.eqGroup,
+        inKey: "parameter3"
+    })
 
-        unit3Button: new capturable.CapturableButton({
-            id: "unit3Button",
-            group: '[EffectRack1_EffectUnit1_Effect3]',
-            inKey: 'enabled',
-            outKey: 'enabled',
-            on: controllers.spectra.orange,
-            midi: [0x90 + controllers.spectra.midiChannel, controllers.spectra[1][3]],
-            type: components.Button.prototype.types.toggle,
-        }),
+    this.eqMid = new components.Pot({
+        group: this.eqGroup,
+        inKey: "parameter2"
+    })
 
-        muteButton: new capturable.CapturableButton({
-            id: "muteButton",
-            group: "[Channel1]",
-            inKey: 'mute',
-            outKey: 'mute',
-            on: 127,
-            midi: [0x90 + controllers.k1_1.midiChannel, controllers.k1_1.channel[0].button1],
-            type: components.prototype.types.toggle
-        })
+    this.eqLow = new components.Pot({
+        group: this.eqGroup,
+        inKey: "parameter1"
+    })
+
+    this.fader = new components.Pot({
+        group: this.group,
+        inKey: "volume"
+    })
+
+    this.mute = new capturable.CapturableButton({
+        id: "muteButton",
+        group: this.group,
+        inKey: "mute",
+        outKey: "mute",
+        // TODO: midi specified here?
+        midi: [midi.noteOn + channel, controllers.k1_1[i].button4],
+        type: components.Button.prototype.types.toggle
+    })
+
+    var self = this
+    this.map = function () {
+        console.log("Channel map")
+
+        XoneChain.mapping.map(
+            channel,
+            controllers.k1_1[i].knob1,
+            "all",
+            self.eqHigh
+        );
+
+        XoneChain.mapping.map(
+            channel,
+            controllers.k1_1[i].knob2,
+            "all",
+            self.eqMid
+        );
+
+        XoneChain.mapping.map(
+            channel,
+            controllers.k1_1[i].knob3,
+            "all",
+            self.eqLow
+        );
+
+        XoneChain.mapping.map(
+            channel,
+            controllers.k1_1[i].fader,
+            "all",
+            self.fader
+        );
+
+        XoneChain.mapping.map(
+            channel,
+            controllers.k1_1[i].button4,
+            "all",
+            self.mute
+        );
+
+        // TODO: this is ugly
+        XoneChain.capturableComponents.mute = this.mute;
     }
-});
-
-XoneChain.mapping = new mapper.MidiMapper();
+};
 
 XoneChain.init = function() {
     components.Button.prototype.isPress = function (channel, control, value, status) {
         return (status & 0xF0) === midi.noteOn;
     };
 
-    XoneChain.mapping.init();
+    XoneChain[0] = new XoneChain.Channel(0, 0);
+    XoneChain[1] = new XoneChain.Channel(1, 0);
+    XoneChain[2] = new XoneChain.Channel(2, 0);
+    XoneChain[3] = new XoneChain.Channel(3, 0);
+    // XoneChain[4] = new XoneChain.Channel(4, 1);
+    // XoneChain[5] = new XoneChain.Channel(5, 1);
+
+    XoneChain.controlComboGroup = new controlcombo.ControlComboGroup({
+        numberOfControlCombos: 4,
+        components: XoneChain.capturableComponents
+    });
+
+    XoneChain.mapping = new mapper.MidiMapper();
+    XoneChain.mappingInit();
 };
 
 
@@ -80,7 +117,7 @@ XoneChain.init = function() {
 // =======
 var valueOff = controllers.spectra.off;
 
-XoneChain.mapping.mapControlComboShift = function(parameters) {
+XoneChain.mapControlComboShift = function (parameters) {
     var i = parameters.i;
     var channel = parameters.channel;
     var control = parameters.control;
@@ -105,7 +142,7 @@ XoneChain.mapping.mapControlComboShift = function(parameters) {
     XoneChain.controlComboGroup[i].shiftButton.valueOff = valueOff;
 };
 
-XoneChain.mapping.mapControlComboTrigger = function(parameters) {
+XoneChain.mapControlComboTrigger = function (parameters) {
     var i = parameters.i;
     var channel = parameters.channel;
     var control = parameters.control;
@@ -130,90 +167,58 @@ XoneChain.mapping.mapControlComboTrigger = function(parameters) {
     XoneChain.controlComboGroup[i].triggerButton.valueOff = valueOff;
 };
 
-XoneChain.mapping.init = function() {
-
-    XoneChain.mapping.map(
-        controllers.spectra.midiChannel,
-        controllers.spectra[1][0],
-        "all",
-        function(channel, control, value, status, group) {
-            XoneChain.controlComboGroup.components.playButton.input(channel, control, value, status, group);
-        }
-    );
-
-    XoneChain.mapping.map(
-        controllers.spectra.midiChannel,
-        controllers.spectra[1][1],
-        "all",
-        function(channel, control, value, status, group) {
-            XoneChain.controlComboGroup.components.unit1Button.input(channel, control, value, status, group);
-        }
-    );
-
-    XoneChain.mapping.map(
-        controllers.spectra.midiChannel,
-        controllers.spectra[1][2],
-        "all",
-        function(channel, control, value, status, group) {
-            XoneChain.controlComboGroup.components.unit2Button.input(channel, control, value, status, group);
-        }
-    );
-
-    XoneChain.mapping.map(
-        controllers.spectra.midiChannel,
-        controllers.spectra[1][3],
-        "all",
-        function(channel, control, value, status, group) {
-            XoneChain.controlComboGroup.components.unit3Button.input(channel, control, value, status, group);
-        }
-    );
+XoneChain.mappingInit = function () {
+    console.log("Mapping init")
 
     // ControlCombo 1
-    XoneChain.mapping.mapControlComboShift({
+    XoneChain.mapControlComboShift({
         i:          0,
-        channel: controllers.spectra.midiChannel,
-        control:    controllers.spectra[2][0],
+        channel: controllers.k1_2.midiChannel,
+        control: controllers.k1_2[2].button4,
     });
-    XoneChain.mapping.mapControlComboTrigger({
+    XoneChain.mapControlComboTrigger({
         i:          0,
-        channel: controllers.spectra.midiChannel,
-        control:    controllers.spectra[3][0],
+        channel: controllers.k1_2.midiChannel,
+        control: controllers.k1_2[3].button4,
     });
 
     // ControlCombo 2
-    XoneChain.mapping.mapControlComboShift({
+    XoneChain.mapControlComboShift({
         i:          1,
-        channel: controllers.spectra.midiChannel,
-        control:    controllers.spectra[2][1],
+        channel: controllers.k1_2.midiChannel,
+        control: controllers.k1_2[2].button5,
     });
-    XoneChain.mapping.mapControlComboTrigger({
+    XoneChain.mapControlComboTrigger({
         i:          1,
-        channel: controllers.spectra.midiChannel,
-        control:    controllers.spectra[3][1],
+        channel: controllers.k1_2.midiChannel,
+        control: controllers.k1_2[3].button5,
     });
 
     // ControlCombo 3
-    XoneChain.mapping.mapControlComboShift({
+    XoneChain.mapControlComboShift({
         i:          2,
-        channel: controllers.spectra.midiChannel,
-        control:    controllers.spectra[2][2],
+        channel: controllers.k1_2.midiChannel,
+        control: controllers.k1_2[2].button6,
     });
-    XoneChain.mapping.mapControlComboTrigger({
+    XoneChain.mapControlComboTrigger({
         i:          2,
-        channel: controllers.spectra.midiChannel,
-        control:    controllers.spectra[3][2],
+        channel: controllers.k1_2.midiChannel,
+        control: controllers.k1_2[3].button6,
     });
 
     // ControlCombo 4
-    XoneChain.mapping.mapControlComboShift({
+    XoneChain.mapControlComboShift({
         i:          3,
-        channel: controllers.spectra.midiChannel,
-        control:    controllers.spectra[2][3],
+        channel: controllers.k1_2.midiChannel,
+        control: controllers.k1_2[2].button7,
     });
-    XoneChain.mapping.mapControlComboTrigger({
+    XoneChain.mapControlComboTrigger({
         i:          3,
-        channel: controllers.spectra.midiChannel,
-        control:    controllers.spectra[3][3],
+        channel: controllers.k1_2.midiChannel,
+        control: controllers.k1_2[3].button7,
     });
 
+    for (var i = 0; i < 4; ++i) {
+        XoneChain[i].map();
+    }
 };
