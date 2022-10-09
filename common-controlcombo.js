@@ -58,15 +58,14 @@
 
         ControlComboButton.call(this, properties);
 
-        var self = this;
         this.animation = new sequencer.Sequencer({
             steps: [
-                    [25,(function () {self.send(controllers.spectra.yellow);})],
-                    [25,(function () {self.send(this.valueOff);})],
-                    [25,(function () {self.send(controllers.spectra.red);})],
-                    [25,(function () {self.send(this.valueOff);})],
-                    [25,(function () {self.send(controllers.spectra.teal);})],
-                    [25,(function () {self.sendOutput();})]
+                [25, (() => { this.send(controllers.spectra.yellow); })],
+                [25, (() => { this.send(this.valueOff); })],
+                [25, (() => { this.send(controllers.spectra.red); })],
+                [25, (() => { this.send(this.valueOff); })],
+                [25, (() => { this.send(controllers.spectra.teal); })],
+                [25, (() => { this.sendOutput(); })]
             ],
             loop: false
         });
@@ -109,16 +108,15 @@
         this.animationStep = 0;
         this.timer = null;
 
-        var self = this;
         // TODO: this shouldn't be here, it should be settable per instance
         this.animation = new sequencer.Sequencer({
             steps: [
-                [25,(function () {self.send(controllers.spectra.yellow);})],
-                [25,(function () {self.send(this.valueOff);})],
-                [25,(function () {self.send(controllers.spectra.red);})],
-                [25,(function () {self.send(this.valueOff);})],
-                [25,(function () {self.send(controllers.spectra.teal);})],
-                [25,(function () {self.send(this.valueOff);})]
+                [25, (() => { this.send(controllers.spectra.yellow); })],
+                [25, (() => { this.send(this.valueOff); })],
+                [25, (() => { this.send(controllers.spectra.red); })],
+                [25, (() => { this.send(this.valueOff); })],
+                [25, (() => { this.send(controllers.spectra.teal); })],
+                [25, (() => { this.send(this.valueOff); })]
             ],
             loop: false
         });
@@ -149,35 +147,30 @@
      * @constructor
      */
     var ControlCombo = function(properties) {
+        _.assign(this, properties);
 
-        var self = this;
-
-        _.assign(self, properties);
-
-        self.shiftButton = new ControlComboShiftButton({
-            controlCombo: self,
-            onPress: function () { self.shiftPressed(); },
-            onRelease: function () { self.shiftReleased(); }
+        this.shiftButton = new ControlComboShiftButton({
+            controlCombo: this,
+            onPress: () => { this.shiftPressed(); },
+            onRelease: () => { this.shiftReleased(); }
         });
-        self.triggerButton = new ControlComboTriggerButton({
-            controlCombo: self,
-            onPress: function () { self.triggerPressed(); },
+        this.triggerButton = new ControlComboTriggerButton({
+            controlCombo: this,
+            onPress: () => { this.triggerPressed(); },
         });
-        self.isLoaded = false;
-        self.shiftOn = false;
-        self.componentsState = {};
+        this.isLoaded = false;
+        this.shiftOn = false;
+        this.componentsState = {};
     };
 
     ControlCombo.prototype = {
 
         shiftPressed: function () {
-            var self = this;
-
             this.shiftOn = true;
             this.controlComboGroup.controlComboSelected(this.id);
 
-            this.forEachComponentWithState(function (component) {
-                component.outputStatePreview(component.getCurrentState(), self.componentsState[component.id]);
+            this.forEachComponentWithState((component) => {
+                component.outputStatePreview(component.getCurrentState(), this.componentsState[component.id]);
             });
         },
 
@@ -191,16 +184,14 @@
         },
 
         triggerPressed: function () {
-            var self = this;
-
             if (this.triggerButton.isOn === true &&
                 !this.shiftOn && this.isLoaded) {
                 this.triggerButton.animate();
 
                 // TODO: make this better
-                this.forEachComponentWithState(function (component) {
-                    // print(self.componentsState[component.id]);
-                    component.applyState(self.componentsState[component.id]);
+                this.forEachComponentWithState((component) => {
+                    // print(this.componentsState[component.id]);
+                    component.applyState(this.componentsState[component.id]);
                 });
 
                 this.componentsState = {};
@@ -260,16 +251,13 @@
      * @constructor
      */
     var ControlComboGroup = function(properties) {
+        _.assign(this, properties);
+        this.components = new components.ComponentContainer(properties.components);
 
-        var self = this;
-
-        _.assign(self, properties);
-        self.components = new components.ComponentContainer(properties.components);
-
-        for (var id = 0; id < self.numberOfControlCombos; ++id) {
+        for (var id = 0; id < this.numberOfControlCombos; ++id) {
     
-            self[id] = new ControlCombo({
-                controlComboGroup: self,
+            this[id] = new ControlCombo({
+                controlComboGroup: this,
                 id: id,
             });
         }
@@ -280,9 +268,9 @@
             if (component instanceof components.Button) {
                 var componentInput = component.input;
                 // TODO: overwriting the input function is dangerous because other libraries might do the same, find an alternative
-                component.input = function (channel, control, value, status, group) {
-                    if (self.activeShiftButton !== null && (status & 0xF0) == midi.noteOn) {
-                        self.captureMessage(component, channel, control, value, status, group);
+                component.input = (channel, control, value, status, group) => {
+                    if (this.activeShiftButton !== null && (status & 0xF0) == midi.noteOn) {
+                        this.captureMessage(component, channel, control, value, status, group);
                     } else {
                         componentInput.call(component, channel, control, value, status, group);
                     }
@@ -294,7 +282,7 @@
         }, true);
 
     
-        self.activeShiftButton = null;
+        this.activeShiftButton = null;
     };
 
     ControlComboGroup.prototype = {

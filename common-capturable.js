@@ -31,24 +31,23 @@
         components.Button.call(this, properties);
 
         // TODO: move this
-        var self = this;
         var initialBlinkInterval = 75;
         this.animation = new sequencer.Sequencer({
             steps: [
-                [0,(function () {self.output(self.animation.newState);})],
-                [initialBlinkInterval,(function () {self.output(self.animation.currentState);})],
-                [initialBlinkInterval,(function () {self.output(self.animation.newState);})],
-                [initialBlinkInterval,(function () {self.output(self.animation.currentState);})],
-                [initialBlinkInterval,(function () {self.output(self.animation.newState);})],
-                [initialBlinkInterval,(function () {self.output(self.animation.currentState);})],
-                [initialBlinkInterval,(function () {self.output(self.animation.newState);})],
-                [initialBlinkInterval,(function () {self.output(self.animation.currentState);})],
-                [initialBlinkInterval,(function () {self.output(self.animation.newState);})],
+                [0, (() => { this.output(this.animation.newState); })],
+                [initialBlinkInterval, (() => { this.output(this.animation.currentState); })],
+                [initialBlinkInterval, (() => { this.output(this.animation.newState); })],
+                [initialBlinkInterval, (() => { this.output(this.animation.currentState); })],
+                [initialBlinkInterval, (() => { this.output(this.animation.newState); })],
+                [initialBlinkInterval, (() => { this.output(this.animation.currentState); })],
+                [initialBlinkInterval, (() => { this.output(this.animation.newState); })],
+                [initialBlinkInterval, (() => { this.output(this.animation.currentState); })],
+                [initialBlinkInterval, (() => { this.output(this.animation.newState); })],
 
-                [925,(function () {self.output(self.animation.currentState);})],
-                [25,(function () {self.output(self.animation.newState);})],
-                [25,(function () {self.output(self.animation.currentState);})],
-                [25,(function () {self.output(self.animation.newState);})],
+                [925, (() => { this.output(this.animation.currentState); })],
+                [25, (() => { this.output(this.animation.newState); })],
+                [25, (() => { this.output(this.animation.currentState); })],
+                [25, (() => { this.output(this.animation.newState); })],
             ],
             loop: 9
         });

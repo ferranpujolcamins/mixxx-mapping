@@ -79,7 +79,6 @@ XoneChain.Channel = function (mixxxChannel, controllerChannel, midiChannel) {
         type: components.Button.prototype.types.toggle
     })
 
-    var self = this
     this.map = function () {
         console.log("Channel map")
 
@@ -87,49 +86,49 @@ XoneChain.Channel = function (mixxxChannel, controllerChannel, midiChannel) {
             midiChannel,
             controllers.k1_1[controllerChannel].knob1,
             "all",
-            self.eqHigh
+            this.eqHigh
         );
 
         XoneChain.mapping.map(
             midiChannel,
             controllers.k1_1[controllerChannel].knob2,
             "all",
-            self.eqMid
+            this.eqMid
         );
 
         XoneChain.mapping.map(
             midiChannel,
             controllers.k1_1[controllerChannel].knob3,
             "all",
-            self.eqLow
+            this.eqLow
         );
 
         XoneChain.mapping.map(
             midiChannel,
             controllers.k1_1[controllerChannel].fader,
             "all",
-            self.fader
+            this.fader
         );
 
         XoneChain.mapping.map(
             midiChannel,
             controllers.k1_1[controllerChannel].encoder,
             "all",
-            self.gain
+            this.gain
         );
 
         XoneChain.mapping.map(
             midiChannel,
             controllers.k1_1[controllerChannel].button4,
             "all",
-            self.mute
+            this.mute
         );
 
         XoneChain.mapping.map(
             midiChannel,
             controllers.k1_1[controllerChannel].encoderButton,
             "all",
-            self.pfl
+            this.pfl
         );
     }
 
