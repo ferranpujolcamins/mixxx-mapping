@@ -77,14 +77,14 @@
                     this.stop();
                 }
                 var currentStep = this.steps[this.stepIndex];
-                this.timer = engine.beginTimer(currentStep[0], function () {
+                this.timer = engine.beginTimer(currentStep[0], () => {
                     currentStep[1](this.stepIndex);
                     this.stepIndex += 1;
                     this.timer = null;
                     this.executeStep();
-                }.bind(this), true);
+                }, true);
             } else {
-                // TODO: this check agasint false is wrong, loop is int
+                // TODO: this check against false is wrong, loop is int
                 if (this.loop !== false) {
                     this.stepIndex = this.loop;
                     this.executeStep();

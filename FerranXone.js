@@ -33,7 +33,6 @@ XoneChain.Encoder.prototype = _.create(components.Encoder.prototype, {
 })
 
 XoneChain.Channel = function (mixxxChannel, controllerChannel, midiChannel) {
-    console.log("Channel constructor")
     this.group = "[Channel" + (mixxxChannel + 1) + "]";
     this.eqGroup = "[EqualizerRack1_" + this.group + "_Effect1]"
 
@@ -80,8 +79,6 @@ XoneChain.Channel = function (mixxxChannel, controllerChannel, midiChannel) {
     })
 
     this.map = function () {
-        console.log("Channel map")
-
         XoneChain.mapping.map(
             midiChannel,
             controllers.k1_1[controllerChannel].knob1,
@@ -133,7 +130,7 @@ XoneChain.Channel = function (mixxxChannel, controllerChannel, midiChannel) {
     }
 
     this.registerCapturableControls = function () {
-        XoneChain.capturableComponents.mute = this.mute;
+        XoneChain.capturableComponents["mute" + mixxxChannel] = this.mute;
     }
 };
 

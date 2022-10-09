@@ -178,7 +178,7 @@
             this.shiftOn = false;
             this.controlComboGroup.controlComboUnSelected(this.id);
 
-            this.forEachComponentWithState(function (component) {
+            this.forEachComponentWithState((component) => {
                 component.outputState(component.getCurrentState());
             });
         },
@@ -262,15 +262,18 @@
             });
         }
 
+        this.id = 66666
+
         // Set self as proxy to the buttons input
 
-        this.components.forEachComponent(function (component) {
+        var self = this
+        this.components.forEachComponent((component) => {
             if (component instanceof components.Button) {
                 var componentInput = component.input;
                 // TODO: overwriting the input function is dangerous because other libraries might do the same, find an alternative
                 component.input = (channel, control, value, status, group) => {
                     if (this.activeShiftButton !== null && (status & 0xF0) == midi.noteOn) {
-                        this.captureMessage(component, channel, control, value, status, group);
+                        self.captureMessage.call(component, channel, control, value, status, group);
                     } else {
                         componentInput.call(component, channel, control, value, status, group);
                     }
