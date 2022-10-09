@@ -130,7 +130,12 @@ XoneChain.Channel = function (mixxxChannel, controllerChannel, midiChannel) {
     }
 
     this.registerCapturableControls = function () {
-        XoneChain.capturableComponents["mute" + mixxxChannel] = this.mute;
+        for (property in this) {
+            var component = this[property];
+            if (component instanceof capturable.CapturableButton) {
+                XoneChain.capturableComponents[component.id] = component;
+            }
+        }
     }
 };
 
