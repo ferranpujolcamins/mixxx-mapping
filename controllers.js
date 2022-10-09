@@ -49,6 +49,7 @@
         this.midiChannel = channel;
 
         var Channel = function (i) {
+            this.encoder = 0 + i
             this.knob1 = 4 + i
             this.knob2 = 8 + i
             this.knob3 = 12 + i

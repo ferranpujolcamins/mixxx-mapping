@@ -12,6 +12,24 @@ midi.cc = 0xB0;
 
 XoneChain.capturableComponents = {};
 
+XoneChain.Encoder = function (options) {
+    components.Encoder.call(this);
+    _.assign(this, options);
+}
+
+XoneChain.Encoder.prototype = _.create(components.Encoder.prototype, {
+    'constructor': XoneChain.Encoder,
+    'input': function (channel, control, value, _status, _group) {
+        var newParam = this.inGetParameter();
+        if (value > 64) {
+            newParam -= 0.005;
+        } else {
+            newParam += 0.005;
+        }
+        this.inSetParameter(newParam);
+    }
+})
+
 XoneChain.Channel = function (i, channel) {
     console.log("Channel constructor")
     this.group = "[Channel" + (i + 1) + "]";
@@ -35,6 +53,11 @@ XoneChain.Channel = function (i, channel) {
     this.fader = new components.Pot({
         group: this.group,
         inKey: "volume"
+    })
+
+    this.gain = new XoneChain.Encoder({
+        group: this.group,
+        inKey: "pregain"
     })
 
     this.mute = new capturable.CapturableButton({
@@ -84,6 +107,13 @@ XoneChain.Channel = function (i, channel) {
             controllers.k1_1[i].button4,
             "all",
             self.mute
+        );
+
+        XoneChain.mapping.map(
+            channel,
+            controllers.k1_1[i].encoder,
+            "all",
+            self.gain
         );
 
         // TODO: this is ugly
@@ -218,6 +248,7 @@ XoneChain.mappingInit = function () {
         control: controllers.k1_2[3].button7,
     });
 
+    // Channels
     for (var i = 0; i < 4; ++i) {
         XoneChain[i].map();
     }

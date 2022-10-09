@@ -61,7 +61,7 @@
 
             var func = funcOrObject;
             if (typeof func === "object") {
-                func = func.input.bind(func);
+                func = funcOrObject.input.bind(funcOrObject);
             }
 
             if (typeof this[channel] === "undefined") {
@@ -81,8 +81,6 @@
     
         input: function(channel, control, value, status, group) {
 
-            var statusNormalized = status & 0xF0;
-    
             // If control not mapped do nothing
             if (this[channel] == undefined) {
                 return;
@@ -94,7 +92,7 @@
                 controlFuncOrObject(channel, control, value, status, group);
 
             } else if (typeof controlFuncOrObject === "object") {
-
+                var statusNormalized = status & 0xF0;
                 var statusFunc = controlFuncOrObject[statusNormalized];
                 if (typeof statusFunc === "function") {
                     statusFunc(channel, control, value, status, group);
