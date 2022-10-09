@@ -262,10 +262,7 @@
             });
         }
 
-        this.id = 66666
-
-        // Set self as proxy to the buttons input
-
+        // Set this as proxy to the buttons input
         var self = this
         this.components.forEachComponent((component) => {
             if (component instanceof components.Button) {
@@ -273,7 +270,7 @@
                 // TODO: overwriting the input function is dangerous because other libraries might do the same, find an alternative
                 component.input = (channel, control, value, status, group) => {
                     if (this.activeShiftButton !== null && (status & 0xF0) == midi.noteOn) {
-                        self.captureMessage.call(component, channel, control, value, status, group);
+                        self.captureMessage.bind(self).call(component, channel, control, value, status, group);
                     } else {
                         componentInput.call(component, channel, control, value, status, group);
                     }
@@ -306,8 +303,9 @@
             }
         },
 
-        captureMessage: function(component, channel, control, value, status, group) {
+        captureMessage: function (component, channel, control, value, status, group) {
             if (this.activeShiftButton == null) { return; }
+
             this[this.activeShiftButton].captureMessage(component, channel, control, value, status, group);
         }
     };
