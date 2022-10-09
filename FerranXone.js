@@ -65,6 +65,7 @@ XoneChain.Channel = function (mixxxChannel, controllerChannel, midiChannel) {
         group: this.group,
         inKey: "mute",
         outKey: "mute",
+        outValueScale: function (value) { return (1 - value) * this.max; },
         // TODO: midi specified here?
         midi: [midi.noteOn + midiChannel, controllers.k1_1[controllerChannel].button4],
         type: components.Button.prototype.types.toggle
